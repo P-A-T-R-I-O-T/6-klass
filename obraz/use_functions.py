@@ -131,4 +131,4 @@ def menu():
         else:
             invalid_menu_item('Неверный пункт меню')
 
-menu()
+#menu()
