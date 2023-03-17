@@ -13,20 +13,21 @@ column = cell * 3 == object
 """
 
 from invalid_menu import invalid_menu_item, cleaning
-from obraz.use_functions import top_menu, menu_selection
+from obraz.use_functions import menu_selection
 from decorator import border_siporaters
 import random
 
 @border_siporaters
-def menu():
+def menu_cards():
     while True:
         text_menu = """
-    Главное меню
+    Игра по карточкам
     
     1. Один игрок портив компютера
     2. 2 игрока
     3. 2 компютера
-    4. Выход    
+    4. Назад,в предыдущее меню
+    5. Выход    
     """
         print(text_menu)
         menu_selection()
@@ -43,8 +44,71 @@ def menu():
 
             pass
         elif item_number == '4':
-            break
+            first_menu()
+            pass
+        elif item_number == '5':
+            exit()
         else:
             invalid_menu_item('Неверный пункт меню')
 
-menu()
+@border_siporaters
+def ticket_menu():
+    while True:
+        text_menu = """
+    Игра по билетам
+
+    1. Один игрок портив компютера
+    2. 2 игрока
+    3. 2 компютера
+    4. Назад,в предыдущее меню
+    5. Выход    
+    """
+        print(text_menu)
+        menu_selection()
+        item_number = input('Как вы хотите сыграть? \n Введите пункт меню: ')
+        cleaning()
+
+        if item_number == '1':
+
+            pass
+        elif item_number == '2':
+
+            pass
+        elif item_number == '3':
+
+            pass
+        elif item_number == '4':
+            first_menu()
+            pass
+        elif item_number == '5':
+            exit()
+        else:
+            invalid_menu_item('Неверный пункт меню')
+@border_siporaters
+def first_menu():
+    while True:
+        text_menu = """
+    Главное меню
+
+    1. Игра по карточкам
+    2. Игра по белетам
+    3. Выход    
+    """
+        print(text_menu)
+        menu_selection()
+        item_number = input('В какой вариант игры Вы хотите сыграть? \n Введите пункт меню: ')
+        cleaning()
+        if item_number == '1':
+            menu_cards()
+            pass
+        elif item_number == '2':
+            ticket_menu()
+            pass
+        elif item_number == '3':
+            exit()
+
+        else:
+            invalid_menu_item('Неверный пункт меню')
+
+
+first_menu()
