@@ -12,15 +12,18 @@ line = column * 9 == object * 5
 column = cell * 3 == object
 """
 
-from invalid_menu import invalid_menu_item, cleaning
-from obraz.use_functions import menu_selection
-from decorator import border_siporaters
+from invalid_menu import invalid_menu_item, cleaning # Предупреждение о неправильном вводе меню и Очистка терминала
+from obraz.use_functions import menu_selection # Выделение нижнего пункта меню
+from decorator import border_siporaters # Выделение верхнего пункта меню
+from faker import Faker # Формирование имён, в нашем случае, имя для компьютера
 import random
+
+fake = Faker('ru-RU') # Русские имена
 
 @border_siporaters
 def menu_cards():
     while True:
-        text_menu = """
+        print("""
     Игра по карточкам
     
     1. Один игрок портив компютера
@@ -28,8 +31,7 @@ def menu_cards():
     3. 2 компютера
     4. Назад,в предыдущее меню
     5. Выход    
-    """
-        print(text_menu)
+    """)
         menu_selection()
         item_number = input('Как вы хотите сыграть? \n Введите пункт меню: ')
         cleaning()
@@ -54,7 +56,7 @@ def menu_cards():
 @border_siporaters
 def ticket_menu():
     while True:
-        text_menu = """
+        print("""
     Игра по билетам
 
     1. Один игрок портив компютера
@@ -62,8 +64,7 @@ def ticket_menu():
     3. 2 компютера
     4. Назад,в предыдущее меню
     5. Выход    
-    """
-        print(text_menu)
+    """)
         menu_selection()
         item_number = input('Как вы хотите сыграть? \n Введите пункт меню: ')
         cleaning()
@@ -87,14 +88,13 @@ def ticket_menu():
 @border_siporaters
 def first_menu():
     while True:
-        text_menu = """
+        print("""
     Главное меню
 
     1. Игра по карточкам
     2. Игра по белетам
     3. Выход    
-    """
-        print(text_menu)
+    """)
         menu_selection()
         item_number = input('В какой вариант игры Вы хотите сыграть? \n Введите пункт меню: ')
         cleaning()
