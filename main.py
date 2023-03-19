@@ -1,3 +1,8 @@
+"""
+Создал карточки и правило игры,
+осталось создать запуск формирование имен перед игрой в пунк 1 второго меню
+"""
+
 from invalid_menu import invalid_menu_item, cleaning # Предупреждение о неправильном вводе меню и Очистка терминала
 from obraz.use_functions import menu_selection # Выделение нижнего пункта меню
 from decorator import border_siporaters # Выделение верхнего пункта меню
@@ -23,7 +28,7 @@ def menu_cards():
         cleaning()
 
         if item_number == '1':
-
+            start_game()
             pass
         elif item_number == '2':
 
@@ -71,6 +76,7 @@ def ticket_menu():
             exit()
         else:
             invalid_menu_item('Неверный пункт меню')
+
 @border_siporaters
 def first_menu():
     while True:
@@ -105,6 +111,20 @@ def generate_unique_numbers(count, minimal, max):
             objects.append(new)
     return objects
 
+
+class Keg:
+    __num = None
+
+    def __init__(self):
+        self.__num = random(1, 90)
+
+    @property
+    def num(self):
+        return self.__num
+
+    def __str__(self):
+        return str(self.__num)
+
 class Card:
     """
     ticket= 0 # билет
@@ -138,6 +158,88 @@ class Card:
                 index = random(0, len(tmp))
                 tmp.insert(index, self.emptynum)
             self.data += tmp
+
+    def __str__(self):
+        delimiter = '--------------------------'
+        ret = delimiter + '\n'
+        for index, num in enumerate(self.data):
+            if num == self.emptynum:
+                ret += '  '
+            elif num == self.crossednum:
+                ret += ' -'
+            elif num < 10:
+                ret += f' {str(num)}'
+            else:
+                ret += str(num)
+
+            if (index + 1) % self.cell == 0:
+                ret += '\n'
+            else:
+                ret += ' '
+
+        return ret + delimiter
+
+    def __contains__(self, item):
+        return item in self.data
+
+    def cross_num(self, num):
+        for index, item in enumerate(self.data):
+            if item == num:
+                self.data[index] = self.crossednum
+                return
+        raise ValueError(f'Number not in card: {num}')
+
+    def closed(self) -> bool:
+        return set(self.data) == {self.emptynum, self.crossednum}
+
+
+class Game:
+    __usercard = None
+    __compcard = None
+    __numkegs = 90
+    __kegs = []
+    __gameover = False
+
+    def __init__(self):
+        self.__usercard = Card()
+        self.__compcard = Card()
+        self.__kegs = generate_unique_numbers(self.__numkegs, 1, 90)
+
+    def play_round(self) -> int:
+        keg = self.__kegs.pop()
+        print(f'Новый бочонок: {keg} (осталось {len(self.__kegs)})')
+        print(f'----- Ваша карточка ------\n{self.__usercard}')
+        print(f'-- Карточка компьютера ---\n{self.__compcard}')
+
+        useranswer = input('Зачеркнуть цифру? (y/n)').lower().strip()
+        if useranswer == 'y' and not keg in self.__usercard or \
+           useranswer != 'y' and keg in self.__usercard:
+            return 2
+
+        if keg in self.__usercard:
+            self.__usercard.cross_num(keg)
+            if self.__usercard.closed():
+                return 1
+        if keg in self.__compcard:
+            self.__compcard.cross_num(keg)
+            if self.__compcard.closed():
+                return 2
+
+        return 0
+
+
+def start_game():
+    if __name__ == '__main__':
+        game = Game()
+        while True:
+            score = game.play_round()
+            if score == 1:
+                print('Вы победили')
+                break
+            elif score == 2:
+                print('Вы проиграли')
+                break
+
 
 
 first_menu()
