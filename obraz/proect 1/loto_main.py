@@ -56,10 +56,17 @@ class Card:
         for i in range(0, self.__rows):
             tmp = sorted(uniques[self.__nums_in_row * i: self.__nums_in_row * (i + 1)])
             empty_nums_count = self.__cols - self.__nums_in_row
-            for j in range(0, empty_nums_count):
-                index = randint(0, len(tmp))
+            for j in range(0, empty_nums_count, ):
+                index = randint(1, len(tmp))
                 tmp.insert(index, self.__emptynum)
             self.__data += tmp
+        result = sorted([i for i in self.__data if i != 0])
+        for inx, elem in enumerate(self.__data):
+            if elem == 0:
+                result.insert(inx, 0)
+        self.__data = result
+        print(self.__data)
+
 
     def __str__(self):
         delimiter = '--------------------------'
