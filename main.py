@@ -2,105 +2,8 @@
 Создал карточки и правило игры,
 осталось создать запуск формирование имен перед игрой в пунк 1 второго меню
 """
-
-from invalid_menu import invalid_menu_item, cleaning # Предупреждение о неправильном вводе меню и Очистка терминала
-from obraz.use_functions import menu_selection # Выделение нижнего пункта меню
-from decorator import border_siporaters # Выделение верхнего пункта меню
-from faker import Faker # Формирование имён, в нашем случае, имя для компьютера
 from random import randint
 
-fake = Faker('ru-RU') # Русские имена
-
-@border_siporaters # 2 меню Игра по карточкам
-def menu_cards():
-    while True:
-        print("""
-    Игра по карточкам
-    
-    1. Один игрок портив компютера
-    2. 2 игрока
-    3. 2 компютера
-    4. Назад,в предыдущее меню
-    5. Выход    
-    """)
-        menu_selection()
-        item_number = input('Как вы хотите сыграть? \n Введите пункт меню: ')
-        cleaning()
-
-        if item_number == '1':
-            start_game()
-            pass
-        elif item_number == '2':
-
-            pass
-        elif item_number == '3':
-
-            pass
-        elif item_number == '4':
-            first_menu()
-            pass
-        elif item_number == '5':
-            exit()
-        else:
-            invalid_menu_item('Неверный пункт меню')
-
-@border_siporaters # 2 меню Инра по белетам
-def ticket_menu():
-    while True:
-        print("""
-    Игра по билетам
-
-    1. Один игрок портив компютера
-    2. 2 игрока
-    3. 2 компютера
-    4. Назад,в предыдущее меню
-    5. Выход    
-    """)
-        menu_selection()
-        item_number = input('Как вы хотите сыграть? \n Введите пункт меню: ')
-        cleaning()
-
-        if item_number == '1':
-
-            pass
-        elif item_number == '2':
-
-            pass
-        elif item_number == '3':
-
-            pass
-        elif item_number == '4':
-            first_menu()
-            pass
-        elif item_number == '5':
-            exit()
-        else:
-            invalid_menu_item('Неверный пункт меню')
-
-@border_siporaters # Главное меню
-def first_menu():
-    while True:
-        print("""
-    Главное меню
-
-    1. Игра по карточкам
-    2. Игра по белетам
-    3. Выход    
-    """)
-        menu_selection()
-        item_number = input('В какой вариант игры Вы хотите сыграть? \n Введите пункт меню: ')
-        cleaning()
-        if item_number == '1':
-            menu_cards()
-            pass
-        elif item_number == '2':
-            ticket_menu()
-            pass
-        elif item_number == '3':
-            exit()
-
-        else:
-            invalid_menu_item('Неверный пункт меню')
 
 
 def generate_unique_numbers(count, minimal, max):
@@ -243,6 +146,4 @@ def start_game():
                 print('Вы проиграли')
                 break
 
-
-
-first_menu()
+start_game()
